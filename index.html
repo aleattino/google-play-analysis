@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alessandro Attino - Google Play Store Analysis</title>
+    <title>Google Play Store Analysis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #166088;
-            --accent-color: #4fc3f7;
-            --light-bg: #f8f9fa;
-            --dark-text: #2c3e50;
-            --light-text: #ecf0f1;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --primary-color: #000000;
+            --secondary-color: #333333;
+            --accent-color: #0071e3;
+            --light-bg: #ffffff;
+            --dark-text: #1d1d1f;
+            --light-text: #f5f5f7;
+            --shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s ease;
         }
         
@@ -21,11 +21,11 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            line-height: 1.5;
             color: var(--dark-text);
             background-color: var(--light-bg);
         }
@@ -37,78 +37,53 @@
             padding: 0 20px;
         }
         
-        /* Navbar */
-        .navbar {
-            background-color: var(--primary-color);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .navbar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--light-text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo i {
-            margin-right: 10px;
-        }
-        
         /* Header */
         header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--light-text);
-            padding: 60px 0;
+            background-color: var(--light-bg);
             text-align: center;
+            padding: 80px 0 40px;
         }
         
         header h1 {
-            font-size: 2.5rem;
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
             margin-bottom: 15px;
         }
         
         header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 800px;
+            font-size: 21px;
+            color: #86868b;
+            max-width: 600px;
             margin: 0 auto;
+            font-weight: 400;
         }
         
         /* Language Switch */
         .language-switch {
-            text-align: right;
-            margin: 25px 0;
+            text-align: center;
+            margin: 30px 0;
         }
         
         .btn {
             display: inline-block;
             background-color: var(--accent-color);
-            color: var(--dark-text);
-            padding: 10px 20px;
-            border-radius: 5px;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 980px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
+            font-size: 16px;
             transition: var(--transition);
             border: none;
             cursor: pointer;
-            box-shadow: var(--shadow);
+            box-shadow: 0 2px 8px rgba(0, 113, 227, 0.3);
         }
         
         .btn:hover {
-            background-color: #2196f3;
+            background-color: #0077ed;
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.4);
         }
         
         .btn i {
@@ -118,15 +93,16 @@
         /* Notebook Container */
         .notebook-container {
             background-color: white;
-            border-radius: 8px;
+            border-radius: 18px;
             box-shadow: var(--shadow);
-            margin-top: 25px;
+            margin: 0 auto 60px;
             overflow: hidden;
             transition: var(--transition);
+            max-width: 1100px;
         }
         
         .notebook-container:hover {
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
         }
         
         iframe {
@@ -138,30 +114,15 @@
         
         /* Footer */
         footer {
-            background-color: var(--primary-color);
-            color: var(--light-text);
+            background-color: #f5f5f7;
             text-align: center;
-            margin-top: 40px;
             padding: 30px 0;
+            color: #86868b;
+            font-size: 14px;
         }
         
         footer p {
-            margin: 10px 0;
-        }
-        
-        .social-links {
-            margin: 15px 0;
-        }
-        
-        .social-links a {
-            color: var(--light-text);
-            font-size: 1.5rem;
-            margin: 0 10px;
-            transition: var(--transition);
-        }
-        
-        .social-links a:hover {
-            color: var(--accent-color);
+            margin: 8px 0;
         }
         
         /* Loading Animation */
@@ -174,8 +135,8 @@
         }
         
         .loading i {
-            font-size: 3rem;
-            color: var(--primary-color);
+            font-size: 2rem;
+            color: var(--accent-color);
             animation: spin 1s infinite linear;
         }
         
@@ -187,31 +148,21 @@
         /* Responsive Design */
         @media screen and (max-width: 768px) {
             header h1 {
-                font-size: 2rem;
+                font-size: 32px;
             }
             
             header p {
-                font-size: 1rem;
+                font-size: 17px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navbar-container container">
-            <a href="#" class="logo">
-                <i class="fas fa-chart-line"></i>
-                Alessandro Attino
-            </a>
-        </div>
-    </nav>
-
     <!-- Header -->
     <header>
         <div class="container">
             <h1>Google Play Store Analysis</h1>
-            <p>Master in Data Analysis - Data Manipulation and Visualization</p>
+            <p>Un'analisi approfondita dei dati delle applicazioni nel Google Play Store</p>
         </div>
     </header>
 
@@ -238,10 +189,6 @@
         <div class="container">
             <p>&copy; 2025 Alessandro Attino</p>
             <p>Master in Data Analysis</p>
-            <div class="social-links">
-                <a href="https://github.com/aleattino" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-            </div>
         </div>
     </footer>
 
