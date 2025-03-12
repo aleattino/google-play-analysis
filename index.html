@@ -59,10 +59,13 @@
             font-weight: 400;
         }
         
-        /* Language Switch */
-        .language-switch {
+        /* Language and View Controls */
+        .controls {
             text-align: center;
             margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
         
         .btn {
@@ -88,6 +91,18 @@
         
         .btn i {
             margin-right: 8px;
+        }
+
+        .btn-secondary {
+            background-color: #f5f5f7;
+            color: var(--dark-text);
+            border: 1px solid #d2d2d7;
+            box-shadow: none;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e8e8ed;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
         /* Notebook Container */
@@ -155,6 +170,11 @@
             header p {
                 font-size: 17px;
             }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -167,13 +187,18 @@
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Controls -->
     <div class="container">
-        <div class="language-switch">
+        <div class="controls">
             <button class="btn" id="lang-toggle">
                 <i class="fas fa-language"></i>
                 Passa all'italiano
             </button>
+            
+            <a id="colab-link" href="https://colab.research.google.com/drive/1LqM128eqmqT5MDVCTdPSFYEKhE1RVAcS?usp=sharing" target="_blank" class="btn btn-secondary">
+                <i class="fas fa-external-link-alt"></i>
+                Open in Google Colab
+            </a>
         </div>
 
         <div class="notebook-container">
@@ -194,20 +219,25 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Percorsi dei notebook su nbviewer
-            const nbviewerBase = "https://nbviewer.org/github/aleattino/google-play-analysis/blob/main/";
-            const italianNotebook = "AlessandroAttinoPython.ipynb";
-            const englishNotebook = "AlessandroAttinoPython_EN.ipynb";
+            // Percorsi dei notebook HTML locali
+            const italianNotebook = 'AlessandroAttinoPython.html';
+            const englishNotebook = 'AlessandroAttinoPython_EN.html';
+            
+            // Link a Colab
+            const italianColabLink = 'https://colab.research.google.com/drive/1tOMLA0N9SZ7hAHIO4HLpNdEIrfnS5_lE?usp=sharing';
+            const englishColabLink = 'https://colab.research.google.com/drive/1LqM128eqmqT5MDVCTdPSFYEKhE1RVAcS?usp=sharing';
             
             // Elementi DOM
             const langToggle = document.getElementById('lang-toggle');
             const notebookIframe = document.getElementById('notebook-iframe');
+            const colabLink = document.getElementById('colab-link');
             
             // Stato corrente della lingua (default: inglese)
             let currentLang = 'en';
             
             // Carica il notebook inglese all'inizio
-            notebookIframe.src = nbviewerBase + englishNotebook;
+            notebookIframe.src = englishNotebook;
+            colabLink.href = englishColabLink;
             
             // Gestione del toggle della lingua
             langToggle.addEventListener('click', function() {
@@ -216,13 +246,17 @@
                 
                 if (currentLang === 'en') {
                     // Passa all'italiano
-                    notebookIframe.src = nbviewerBase + italianNotebook;
+                    notebookIframe.src = italianNotebook;
+                    colabLink.href = italianColabLink;
+                    colabLink.innerHTML = '<i class="fas fa-external-link-alt"></i> Apri in Google Colab';
                     langToggle.innerHTML = '<i class="fas fa-language"></i> Switch to English';
                     currentLang = 'it';
                     document.documentElement.lang = 'it';
                 } else {
                     // Passa all'inglese
-                    notebookIframe.src = nbviewerBase + englishNotebook;
+                    notebookIframe.src = englishNotebook;
+                    colabLink.href = englishColabLink;
+                    colabLink.innerHTML = '<i class="fas fa-external-link-alt"></i> Open in Google Colab';
                     langToggle.innerHTML = '<i class="fas fa-language"></i> Passa all\'italiano';
                     currentLang = 'en';
                     document.documentElement.lang = 'en';
