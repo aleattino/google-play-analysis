@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +32,7 @@
         
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -41,7 +41,7 @@
         header {
             background-color: var(--light-bg);
             text-align: center;
-            padding: 80px 0 40px;
+            padding: 60px 0 30px;
         }
         
         header h1 {
@@ -62,7 +62,7 @@
         /* Language Switch */
         .language-switch {
             text-align: center;
-            margin: 30px 0;
+            margin: 25px 0;
         }
         
         .btn {
@@ -98,7 +98,8 @@
             margin: 0 auto 60px;
             overflow: hidden;
             transition: var(--transition);
-            max-width: 1100px;
+            max-width: 1300px;
+            width: 95%;
         }
         
         .notebook-container:hover {
@@ -107,7 +108,7 @@
         
         iframe {
             width: 100%;
-            height: 800px;
+            height: 850px;
             border: none;
             display: block;
         }
@@ -162,7 +163,7 @@
     <header>
         <div class="container">
             <h1>Google Play Store Analysis</h1>
-            <p>Un'analisi approfondita dei dati delle applicazioni nel Google Play Store</p>
+            <p>In-depth analysis of Google Play Store applications data</p>
         </div>
     </header>
 
@@ -171,14 +172,14 @@
         <div class="language-switch">
             <button class="btn" id="lang-toggle">
                 <i class="fas fa-language"></i>
-                Switch to English
+                Passa all'italiano
             </button>
         </div>
 
         <div class="notebook-container">
             <div class="loading" id="loading">
                 <i class="fas fa-spinner"></i>
-                <p>Caricamento...</p>
+                <p>Loading...</p>
             </div>
             <iframe id="notebook-iframe" onload="document.getElementById('loading').style.display='none'"></iframe>
         </div>
@@ -188,6 +189,7 @@
     <footer>
         <div class="container">
             <p>&copy; 2025 Alessandro Attino</p>
+            <p>Master in Data Analysis</p>
         </div>
     </footer>
 
@@ -201,29 +203,29 @@
             const langToggle = document.getElementById('lang-toggle');
             const notebookIframe = document.getElementById('notebook-iframe');
             
-            // Stato corrente della lingua (default: italiano)
-            let currentLang = 'it';
+            // Stato corrente della lingua (default: inglese)
+            let currentLang = 'en';
             
-            // Carica il notebook italiano all'inizio
-            notebookIframe.src = italianNotebook;
+            // Carica il notebook inglese all'inizio
+            notebookIframe.src = englishNotebook;
             
             // Gestione del toggle della lingua
             langToggle.addEventListener('click', function() {
                 // Mostra il caricamento
                 document.getElementById('loading').style.display = 'block';
                 
-                if (currentLang === 'it') {
-                    // Passa all'inglese
-                    notebookIframe.src = englishNotebook;
-                    langToggle.innerHTML = '<i class="fas fa-language"></i> Passa all\'italiano';
-                    currentLang = 'en';
-                    document.documentElement.lang = 'en';
-                } else {
+                if (currentLang === 'en') {
                     // Passa all'italiano
                     notebookIframe.src = italianNotebook;
                     langToggle.innerHTML = '<i class="fas fa-language"></i> Switch to English';
                     currentLang = 'it';
                     document.documentElement.lang = 'it';
+                } else {
+                    // Passa all'inglese
+                    notebookIframe.src = englishNotebook;
+                    langToggle.innerHTML = '<i class="fas fa-language"></i> Passa all\'italiano';
+                    currentLang = 'en';
+                    document.documentElement.lang = 'en';
                 }
             });
         });
