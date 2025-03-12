@@ -100,6 +100,7 @@
             transition: var(--transition);
             max-width: 1300px;
             width: 95%;
+            position: relative;
         }
         
         .notebook-container:hover {
@@ -133,6 +134,10 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
         }
         
         .loading i {
@@ -155,6 +160,11 @@
             header p {
                 font-size: 17px;
             }
+        }
+        
+        /* Hide initially and show with JavaScript */
+        #english-notebook, #italian-notebook {
+            display: none;
         }
     </style>
 </head>
@@ -181,7 +191,16 @@
                 <i class="fas fa-spinner"></i>
                 <p>Loading...</p>
             </div>
-            <iframe id="notebook-iframe" onload="document.getElementById('loading').style.display='none'"></iframe>
+            
+            <!-- English Notebook (Colab) -->
+            <div id="english-notebook">
+                <iframe src="https://colab.research.google.com/drive/1LqM128eqmqT5MDVCTdPSFYEKhE1RVAcS?usp=sharing" frameborder="0" allowfullscreen></iframe>
+            </div>
+            
+            <!-- Italian Notebook (Colab) -->
+            <div id="italian-notebook">
+                <iframe src="https://colab.research.google.com/drive/1tOMLA0N9SZ7hAHIO4HLpNdEIrfnS5_lE?usp=sharing" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 
@@ -194,39 +213,56 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Percorsi dei notebook
-            const italianNotebook = 'AlessandroAttinoPython.html';
-            const englishNotebook = 'AlessandroAttinoPython_EN.html';
-            
             // Elementi DOM
             const langToggle = document.getElementById('lang-toggle');
-            const notebookIframe = document.getElementById('notebook-iframe');
+            const englishNotebook = document.getElementById('english-notebook');
+            const italianNotebook = document.getElementById('italian-notebook');
+            const loading = document.getElementById('loading');
             
             // Stato corrente della lingua (default: inglese)
             let currentLang = 'en';
             
-            // Carica il notebook inglese all'inizio
-            notebookIframe.src = englishNotebook;
+            // Funzione per mostrare il caricamento
+            function showLoading() {
+                loading.style.display = 'block';
+            }
             
-            // Gestione del toggle della lingua
-            langToggle.addEventListener('click', function() {
-                // Mostra il caricamento
-                document.getElementById('loading').style.display = 'block';
+            // Funzione per nascondere il caricamento
+            function hideLoading() {
+                loading.style.display = 'none';
+            }
+            
+            // Funzione per cambiare la lingua
+            function toggleLanguage() {
+                showLoading();
                 
                 if (currentLang === 'en') {
                     // Passa all'italiano
-                    notebookIframe.src = italianNotebook;
+                    englishNotebook.style.display = 'none';
+                    italianNotebook.style.display = 'block';
                     langToggle.innerHTML = '<i class="fas fa-language"></i> Switch to English';
                     currentLang = 'it';
                     document.documentElement.lang = 'it';
                 } else {
                     // Passa all'inglese
-                    notebookIframe.src = englishNotebook;
+                    italianNotebook.style.display = 'none';
+                    englishNotebook.style.display = 'block';
                     langToggle.innerHTML = '<i class="fas fa-language"></i> Passa all\'italiano';
                     currentLang = 'en';
                     document.documentElement.lang = 'en';
                 }
-            });
+                
+                // Nascondi il caricamento dopo un breve periodo (gli iframe di Colab potrebbero non avere eventi onload affidabili)
+                setTimeout(hideLoading, 1500);
+            }
+            
+            // Inizializzazione: mostra il notebook inglese all'inizio
+            englishNotebook.style.display = 'block';
+            italianNotebook.style.display = 'none';
+            hideLoading();
+            
+            // Aggiungi evento al pulsante per cambiare lingua
+            langToggle.addEventListener('click', toggleLanguage);
         });
     </script>
 </body>
