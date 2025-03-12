@@ -194,9 +194,10 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Percorsi dei notebook
-            const italianNotebook = 'AlessandroAttinoPython.html';
-            const englishNotebook = 'AlessandroAttinoPython_EN.html';
+            // Percorsi dei notebook su nbviewer
+            const nbviewerBase = "https://nbviewer.org/github/aleattino/google-play-analysis/blob/main/";
+            const italianNotebook = "AlessandroAttinoPython.ipynb";
+            const englishNotebook = "AlessandroAttinoPython_EN.ipynb";
             
             // Elementi DOM
             const langToggle = document.getElementById('lang-toggle');
@@ -206,7 +207,7 @@
             let currentLang = 'en';
             
             // Carica il notebook inglese all'inizio
-            notebookIframe.src = englishNotebook;
+            notebookIframe.src = nbviewerBase + englishNotebook;
             
             // Gestione del toggle della lingua
             langToggle.addEventListener('click', function() {
@@ -215,13 +216,13 @@
                 
                 if (currentLang === 'en') {
                     // Passa all'italiano
-                    notebookIframe.src = italianNotebook;
+                    notebookIframe.src = nbviewerBase + italianNotebook;
                     langToggle.innerHTML = '<i class="fas fa-language"></i> Switch to English';
                     currentLang = 'it';
                     document.documentElement.lang = 'it';
                 } else {
                     // Passa all'inglese
-                    notebookIframe.src = englishNotebook;
+                    notebookIframe.src = nbviewerBase + englishNotebook;
                     langToggle.innerHTML = '<i class="fas fa-language"></i> Passa all\'italiano';
                     currentLang = 'en';
                     document.documentElement.lang = 'en';
