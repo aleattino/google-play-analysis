@@ -270,11 +270,11 @@
             <p>To run this analysis in Google Colab, you'll need the original datasets. These files are included in this repository and can be downloaded using the links below. After downloading, you can upload them to your Colab environment to execute the notebook.</p>
             
             <div class="datasets-links">
-                <a href="javascript:void(0)" onclick="downloadFile('googleplaystore.csv')" class="dataset-link">
+                <a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/aleattino/google-play-analysis/blob/main/googleplaystore.csv" class="dataset-link" target="_blank">
                     <i class="fas fa-table"></i>
                     googleplaystore.csv
                 </a>
-                <a href="javascript:void(0)" onclick="downloadFile('googleplaystore_user_reviews.csv')" class="dataset-link">
+                <a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/aleattino/google-play-analysis/blob/main/googleplaystore_user_reviews.csv" class="dataset-link" target="_blank">
                     <i class="fas fa-comments"></i>
                     googleplaystore_user_reviews.csv
                 </a>
@@ -339,24 +339,6 @@
                 }
             });
         });
-        
-        // Funzione per forzare il download dei file
-        function downloadFile(filename) {
-            const url = `https://raw.githubusercontent.com/aleattino/google-play-analysis/main/${filename}`;
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            
-            // In alcuni browser è necessario cliccare l'elemento per avviare il download
-            a.click();
-            
-            // Rimuovi l'elemento dopo il download
-            setTimeout(() => {
-                document.body.removeChild(a);
-            }, 1000);
-        }
     </script>
 </body>
 </html>
