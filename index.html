@@ -237,8 +237,8 @@
     <!-- Header -->
     <header>
         <div class="container">
-            <h1>Google Play Store Analysis</h1>
-            <p>An in-depth analysis of Google Play Store applications data</p>
+            <h1 id="main-title">Google Play Store Analysis</h1>
+            <p id="subtitle">An in-depth analysis of Google Play Store applications data</p>
         </div>
     </header>
 
@@ -259,15 +259,15 @@
         <div class="notebook-container">
             <div class="loading" id="loading">
                 <i class="fas fa-spinner"></i>
-                <p>Loading...</p>
+                <p id="loading-text">Loading...</p>
             </div>
             <iframe id="notebook-iframe" onload="document.getElementById('loading').style.display='none'"></iframe>
         </div>
         
         <!-- Datasets Section -->
         <div class="datasets-section">
-            <h2>Datasets</h2>
-            <p>To run this analysis in Google Colab, you'll need the original datasets. These files are included in this repository and can be downloaded using the links below. After downloading, you can upload them to your Colab environment to execute the notebook.</p>
+            <h2 id="datasets-title">Datasets</h2>
+            <p id="datasets-description">To run this analysis in Google Colab, you'll need the original datasets. These files are included in this repository and can be downloaded using the links below. After downloading, you can upload them to your Colab environment to execute the notebook.</p>
             
             <div class="datasets-links">
                 <a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/aleattino/google-play-analysis/blob/main/googleplaystore.csv" class="dataset-link" target="_blank">
@@ -278,7 +278,7 @@
                     <i class="fas fa-comments"></i>
                     googleplaystore_user_reviews.csv
                 </a>
-                <a href="https://github.com/aleattino/google-play-analysis" class="dataset-link" target="_blank">
+                <a href="https://github.com/aleattino/google-play-analysis" class="dataset-link" target="_blank" id="repo-link">
                     <i class="fab fa-github"></i>
                     GitHub Repository
                 </a>
@@ -303,10 +303,40 @@
             const italianColabLink = 'https://colab.research.google.com/drive/1tOMLA0N9SZ7hAHIO4HLpNdEIrfnS5_lE?usp=sharing';
             const englishColabLink = 'https://colab.research.google.com/drive/1LqM128eqmqT5MDVCTdPSFYEKhE1RVAcS?usp=sharing';
             
+            // Traduzioni
+            const translations = {
+                en: {
+                    title: "Google Play Store Analysis",
+                    subtitle: "An in-depth analysis of Google Play Store applications data",
+                    langButton: "Passa all'italiano",
+                    colabButton: "Open in Google Colab",
+                    loadingText: "Loading...",
+                    datasetsTitle: "Datasets",
+                    datasetsDescription: "To run this analysis in Google Colab, you'll need the original datasets. These files are included in this repository and can be downloaded using the links below. After downloading, you can upload them to your Colab environment to execute the notebook.",
+                    repoLink: "GitHub Repository"
+                },
+                it: {
+                    title: "Analisi del Google Play Store",
+                    subtitle: "Un'analisi approfondita dei dati delle applicazioni nel Google Play Store",
+                    langButton: "Switch to English",
+                    colabButton: "Apri in Google Colab",
+                    loadingText: "Caricamento...",
+                    datasetsTitle: "Dataset",
+                    datasetsDescription: "Per eseguire questa analisi in Google Colab, avrai bisogno dei dataset originali. Questi file sono inclusi in questo repository e possono essere scaricati utilizzando i link qui sotto. Dopo il download, puoi caricarli nel tuo ambiente Colab per eseguire il notebook.",
+                    repoLink: "Repository GitHub"
+                }
+            };
+            
             // Elementi DOM
             const langToggle = document.getElementById('lang-toggle');
             const notebookIframe = document.getElementById('notebook-iframe');
             const colabLink = document.getElementById('colab-link');
+            const mainTitle = document.getElementById('main-title');
+            const subtitle = document.getElementById('subtitle');
+            const loadingText = document.getElementById('loading-text');
+            const datasetsTitle = document.getElementById('datasets-title');
+            const datasetsDescription = document.getElementById('datasets-description');
+            const repoLink = document.getElementById('repo-link');
             
             // Stato corrente della lingua (default: inglese)
             let currentLang = 'en';
@@ -314,6 +344,24 @@
             // Carica il notebook inglese all'inizio
             notebookIframe.src = englishNotebook;
             colabLink.href = englishColabLink;
+            
+            // Funzione per aggiornare tutti i testi della pagina
+            function updatePageTexts(lang) {
+                const texts = translations[lang];
+                
+                mainTitle.textContent = texts.title;
+                subtitle.textContent = texts.subtitle;
+                langToggle.innerHTML = `<i class="fas fa-language"></i> ${texts.langButton}`;
+                colabLink.innerHTML = `<i class="fas fa-external-link-alt"></i> ${texts.colabButton}`;
+                loadingText.textContent = texts.loadingText;
+                datasetsTitle.textContent = texts.datasetsTitle;
+                datasetsDescription.textContent = texts.datasetsDescription;
+                
+                // Aggiorna l'ultimo elemento del repo link (il testo) mantenendo l'icona
+                const repoLinkContent = repoLink.innerHTML;
+                const iconPart = repoLinkContent.substring(0, repoLinkContent.indexOf('</i>') + 4);
+                repoLink.innerHTML = iconPart + ' ' + texts.repoLink;
+            }
             
             // Gestione del toggle della lingua
             langToggle.addEventListener('click', function() {
@@ -324,20 +372,21 @@
                     // Passa all'italiano
                     notebookIframe.src = italianNotebook;
                     colabLink.href = italianColabLink;
-                    colabLink.innerHTML = '<i class="fas fa-external-link-alt"></i> Apri in Google Colab';
-                    langToggle.innerHTML = '<i class="fas fa-language"></i> Switch to English';
                     currentLang = 'it';
                     document.documentElement.lang = 'it';
+                    updatePageTexts('it');
                 } else {
                     // Passa all'inglese
                     notebookIframe.src = englishNotebook;
                     colabLink.href = englishColabLink;
-                    colabLink.innerHTML = '<i class="fas fa-external-link-alt"></i> Open in Google Colab';
-                    langToggle.innerHTML = '<i class="fas fa-language"></i> Passa all\'italiano';
                     currentLang = 'en';
                     document.documentElement.lang = 'en';
+                    updatePageTexts('en');
                 }
             });
+            
+            // Inizializza i testi nella lingua predefinita (inglese)
+            updatePageTexts('en');
         });
     </script>
 </body>
