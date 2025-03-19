@@ -66,6 +66,7 @@
             display: flex;
             justify-content: center;
             gap: 15px;
+            flex-wrap: wrap;
         }
         
         .btn {
@@ -103,6 +104,15 @@
         .btn-secondary:hover {
             background-color: #e8e8ed;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-streamlit {
+            background-color: #FF4B4B;
+            color: white;
+        }
+        
+        .btn-streamlit:hover {
+            background-color: #E03535;
         }
         
         /* Notebook Container */
@@ -254,6 +264,11 @@
                 <i class="fas fa-external-link-alt"></i>
                 Open in Google Colab
             </a>
+            
+            <a href="https://playstore-dashboard.streamlit.app/" target="_blank" class="btn btn-streamlit" id="streamlit-link">
+                <i class="fas fa-chart-bar"></i>
+                <span id="streamlit-text">Interactive Dashboard</span>
+            </a>
         </div>
 
         <div class="notebook-container">
@@ -310,6 +325,7 @@
                     subtitle: "An in-depth analysis of Google Play Store applications data",
                     langButton: "Passa all'italiano",
                     colabButton: "Open in Google Colab",
+                    streamlitButton: "Interactive Dashboard",
                     loadingText: "Loading...",
                     datasetsTitle: "Datasets",
                     datasetsDescription: "To run this analysis in Google Colab, you'll need the original datasets. These files are included in this repository and can be downloaded using the links below. After downloading, you can upload them to your Colab environment to execute the notebook.",
@@ -317,12 +333,13 @@
                 },
                 it: {
                     title: "Analisi del Google Play Store",
-                    subtitle: "Analisi approfondita dei dati delle applicazioni nel Google Play Store",
+                    subtitle: "Un'analisi approfondita dei dati delle applicazioni nel Google Play Store",
                     langButton: "Switch to English",
                     colabButton: "Apri in Google Colab",
+                    streamlitButton: "Dashboard Interattiva",
                     loadingText: "Caricamento...",
                     datasetsTitle: "Dataset",
-                    datasetsDescription: "Per eseguire l'analisi in Google Colab sono necessari i dataset originali. I file sono disponibili nel repository o possono essere scaricati direttamente tramite i link sottostanti. Una volta scaricati, è possibile caricarli nell'ambiente Colab per eseguire il notebook.",
+                    datasetsDescription: "Per eseguire l'analisi in Google Colab, sono necessari i dataset originali. I file sono disponibili in questo repository e possono essere scaricati tramite i link sottostanti. Una volta scaricati, è possibile caricarli nell'ambiente Colab per eseguire correttamente il notebook.",
                     repoLink: "Repository GitHub"
                 }
             };
@@ -331,6 +348,7 @@
             const langToggle = document.getElementById('lang-toggle');
             const notebookIframe = document.getElementById('notebook-iframe');
             const colabLink = document.getElementById('colab-link');
+            const streamlitText = document.getElementById('streamlit-text');
             const mainTitle = document.getElementById('main-title');
             const subtitle = document.getElementById('subtitle');
             const loadingText = document.getElementById('loading-text');
@@ -353,6 +371,7 @@
                 subtitle.textContent = texts.subtitle;
                 langToggle.innerHTML = `<i class="fas fa-language"></i> ${texts.langButton}`;
                 colabLink.innerHTML = `<i class="fas fa-external-link-alt"></i> ${texts.colabButton}`;
+                streamlitText.textContent = texts.streamlitButton;
                 loadingText.textContent = texts.loadingText;
                 datasetsTitle.textContent = texts.datasetsTitle;
                 datasetsDescription.textContent = texts.datasetsDescription;
